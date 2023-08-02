@@ -1,0 +1,136 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XOR encode Web Interface</title>
+    <!-- Add your CSS stylesheets here -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: red;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            background-color: #ff00ff;
+            border: none;
+            border-radius: 5px;
+            color: black;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background-color: #ffff00;
+            border: none;
+            border-radius: 5px;
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ffaa00;
+        }
+
+        #output-container {
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+
+        pre {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="animate__animated animate__fadeInDown">trhacknon XOR encode Web Interface</h1>
+    <form id="encoder-form" class="animate__animated animate__fadeInUp">
+        <label for="method">Shell Method:</label>
+        <select name="method" id="method" style="background-color: #ffaa00;">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+        </select>
+
+        <label for="password">Shell Password:</label>
+        <input type="text" name="password" id="password" placeholder="Enter the shell password" required>
+
+        <label for="output">Output Filename:</label>
+        <input type="text" name="output" id="output" placeholder="Enter the output filename" style="background-color: #00ffff;">
+
+        <button type="submit" style="background-color: #ff00ff;">Encode</button>
+    </form>
+
+    <div id="output-container" class="animate__animated animate__fadeIn animate__delay-1s" style="border-color: #ffff00;">
+        <!-- Display the output from the encoder here -->
+    </div>
+
+    <!-- JavaScript script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('encoder-form');
+            const outputContainer = document.getElementById('output-container');
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const userOptions = {};
+
+                // Convert form data to JSON object
+                for (const [key, value] of formData.entries()) {
+                    userOptions[key] = value;
+                }
+
+                // Send AJAX request to execute the encoder with user options
+                fetch('/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userOptions)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    outputContainer.innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    outputContainer.innerHTML = '<pre>An error occurred</pre>';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -19,9 +19,16 @@ Usage：python3 -m/--method [GET\POST] -p/--password [password] -o/--ouput [outp
 Generate a shell with default parameters
 
 ```
-python3 xorshell.py
+./xor.py
 ```
-
+## launch web interface
+```
+./xor
+```
+if flask isnt installed launch:
+```
+pip install -r req.txt --force
+```
 ![Example](/image/example1.jpg)
 
 
@@ -29,7 +36,7 @@ python3 xorshell.py
 Generate a shell ,  use POST as method and  "c1" as password , Output to file with name "xor_shell_eval.php"
 
 ```
-python3 xorshell.py -m post -p c1 -o xor_shell_eval.php
+./xor.py -m post -p c1 -o xor_shell_eval.php
 ```
 
 ![example2](/image/example2.jpg)
