@@ -6,30 +6,55 @@
     <!-- Add your CSS stylesheets here -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: black;
-            color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: black; /* Change the background to black */
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
 
-        h1 {
-            color: red;
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+    /* Updated h1 styles */
+    h1 {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: rainbowText 5s infinite;
+    }
+    .footer {
+        margin-top: 2rem;
+        text-align: center;
+        color: white;
+    }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    /* Updated download link styles */
+    .download-link {
+        color: white;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    @keyframes rainbowText {
+        0% { color: violet; }
+        14% { color: indigo; }
+        28% { color: blue; }
+        42% { color: green; }
+        57% { color: yellow; }
+        71% { color: orange; }
+        85% { color: red; }
+        100% { color: violet; }
+    }
+
+    /* Adjusted styles for form and output container */
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem; /* Add margin to separate form from header */
+    }
+
 
         label {
             font-size: 1.2rem;
@@ -63,12 +88,14 @@
             background-color: #ffaa00;
         }
 
-        #output-container {
-            margin-top: 2rem;
-            padding: 1rem;
-            border: 1px solid white;
-            border-radius: 5px;
-        }
+    #output-container {
+        margin-top: 2rem;
+        padding: 1rem;
+        border: 1px solid white;
+        border-radius: 5px;
+        background-color: white; /* Change the background color to white */
+        color: black; /* Change the text color to black */
+    }
 
         pre {
             white-space: pre-wrap;
@@ -95,6 +122,12 @@
 
     <div id="output-container" class="animate__animated animate__fadeIn animate__delay-1s" style="border-color: #ffff00;">
         <!-- Display the output from the encoder here -->
+    </div>
+
+    <div class="footer">
+        <p>This XOR encode Web Interface is kindly provided by trhacknon.</p>
+        <p>What is XOR encoding? XOR encoding is a simple bitwise operation that can be used to obfuscate data, including PHP webshells. It's useful for evading simple pattern matching techniques used by security tools. By encoding a webshell using XOR, it becomes harder for security tools to detect it based on known signatures.</p>
+        <p>If you wish to download the encoded PHP webshell, <span class="download-link" onclick="downloadWebshell()">click here</span>.</p>
     </div>
 
     <!-- JavaScript script -->
@@ -131,6 +164,18 @@
                 });
             });
         });
+
+        function downloadWebshell() {
+            const webshellContent = document.getElementById('output-container').innerText;
+            const blob = new Blob([webshellContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'encoded_webshell.php';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
     </script>
 </body>
 </html>
